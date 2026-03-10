@@ -77,6 +77,13 @@ python tools/discover_theknot.py venues
 python tools/discover_theknot.py florists
 ```
 
+**With minimum price filter (reduces results to higher-end venues):**
+```bash
+source venv/bin/activate
+python tools/discover_theknot.py venues albany --min-price 10000
+python tools/discover_theknot.py venues hudson-valley --min-price 10000
+```
+
 ### Search Configuration
 
 Defined in `tools/discover_theknot.py` SEARCHES dict:
@@ -107,3 +114,5 @@ Defined in `tools/discover_theknot.py` SEARCHES dict:
 - The Knot data is very rich: 100% email and website coverage in test runs
 - The Knot provides direct email addresses, reducing need for Apollo enrichment on those leads
 - Correct The Knot URL format: `wedding-reception-venues` not `wedding-venues`
+- The Knot supports `?minPrice=N` query param to filter by minimum starting price — dramatically reduces result count (e.g. Hudson Valley: 306 → 73 with minPrice=10000)
+- Hudson Valley is a valid The Knot region slug (`hudson-valley-ny`)

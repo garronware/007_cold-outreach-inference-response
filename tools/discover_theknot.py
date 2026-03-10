@@ -2,9 +2,10 @@
 Discover potential buyers using The Knot marketplace via Apify scraper.
 
 Usage:
-    python tools/discover_theknot.py                    # Full run (all categories, all cities)
-    python tools/discover_theknot.py venues             # Venues only, all cities
-    python tools/discover_theknot.py florists boston     # Florists in Boston only
+    python tools/discover_theknot.py                                # Full run (all categories, all cities)
+    python tools/discover_theknot.py venues                         # Venues only, all cities
+    python tools/discover_theknot.py florists boston                 # Florists in Boston only
+    python tools/discover_theknot.py venues albany --min-price 10000 # Venues in Albany, $10k+ starting price
 
 Actor: dionysus_way/the-knot-marketplace-scraper---wedding-vendor-leads
 Outputs raw leads to .tmp/raw_leads_theknot.json.
@@ -35,7 +36,7 @@ SEARCHES = {
         "max_pages": 5,
         "cities": [
             ("boston", "ma"), ("new-york", "ny"), ("albany", "ny"),
-            ("philadelphia", "pa"),
+            ("hudson-valley", "ny"), ("philadelphia", "pa"),
             ("washington", "dc"), ("nashville", "tn"), ("chicago", "il"),
             ("miami", "fl"), ("los-angeles", "ca"), ("san-francisco", "ca"),
             ("denver", "co"), ("seattle", "wa"), ("charleston", "sc"),
@@ -60,13 +61,16 @@ POLL_INTERVAL = 10  # seconds
 MAX_POLL_ATTEMPTS = 60  # 10 min max wait
 
 
-def build_urls(category: str, cities: list) -> list:
+def build_urls(category: str, cities: list, min_price: Optional[int] = None) -> list:
     """Build The Knot marketplace URLs for a category + city list."""
     url_cat = SEARCHES[category]["url_category"]
-    return [
-        f"https://www.theknot.com/marketplace/{url_cat}-{city}-{state}"
-        for city, state in cities
-    ]
+    urls = []
+    for city, state in cities:
+        url = f"https://www.theknot.com/marketplace/{url_cat}-{city}-{state}"
+        if min_price:
+            url += f"?minPrice={min_price}"
+        urls.append(url)
+    return urls
 
 
 def run_actor(start_urls: list, max_pages: int) -> list:
@@ -133,13 +137,15 @@ def normalize_theknot_lead(item: dict, category: str) -> dict:
     }
 
 
-def run(categories: Optional[list] = None, city_filter: Optional[str] = None):
+def run(categories: Optional[list] = None, city_filter: Optional[str] = None,
+        min_price: Optional[int] = None):
     """
     Run The Knot discovery.
 
     Args:
         categories: List of category keys (default: all)
         city_filter: If provided, only search this city slug (e.g. "boston")
+        min_price: If provided, filter by minimum starting price (e.g. 10000)
     """
     if not APIFY_TOKEN:
         print("ERROR: APIFY_API_TOKEN not set in .env")
@@ -161,7 +167,7 @@ def run(categories: Optional[list] = None, city_filter: Optional[str] = None):
                 print(f"WARNING: City '{city_filter}' not found for {category}")
                 continue
 
-        urls = build_urls(category, cities)
+        urls = build_urls(category, cities, min_price=min_price)
         max_pages = config["max_pages"]
 
         print(f"\n{'='*60}")
@@ -214,9 +220,14 @@ def run(categories: Optional[list] = None, city_filter: Optional[str] = None):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        cat_arg = sys.argv[1]
-        city_arg = sys.argv[2] if len(sys.argv) > 2 else None
-        run(categories=[cat_arg], city_filter=city_arg)
-    else:
-        run()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Discover leads from The Knot marketplace")
+    parser.add_argument("category", nargs="?", help="Category to search (venues, florists)")
+    parser.add_argument("city", nargs="?", help="City slug to filter (e.g. boston, albany)")
+    parser.add_argument("--min-price", type=int, help="Minimum starting price filter (e.g. 10000)")
+
+    args = parser.parse_args()
+
+    categories = [args.category] if args.category else None
+    run(categories=categories, city_filter=args.city, min_price=args.min_price)
