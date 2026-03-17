@@ -1,4 +1,116 @@
-# Inventory Liquidation — Workflow Automation Plan
+# Inventory Liquidation — Project Plan
+
+---
+
+## How We Work Together
+
+### After each step
+Stop after completing each step and wait for my confirmation before moving to the next step. Show me what you built and how to verify it works. When I confirm that it works, update `plan.md` to mark the step as complete and note any deviations or issues. Do not proceed to the next step until I give you permission.
+
+### After each session
+Update `plan.md` with the progress made over the entire session. Mark completed steps with ✅ and note anything that deviated from the plan or any issues encountered during the session.
+
+### Before starting a new session
+Read `plan.md`. Continue from where we left off.
+
+---
+
+# Part 2: Story Page (Shareable Frontend)
+
+## Context
+
+The outreach pipeline (Part 1) is complete and working. Now we need a shareable frontend — a scroll-driven story page deployed to a live URL — so Garron can share the project on Twitter/LinkedIn. The audience is non-developers and small business owners. The story is the star; the app proves it's real.
+
+**Design spec:** `docs/superpowers/specs/2026-03-13-story-page-design.md`
+
+**Narrative:** Son helps mom. Organized a warehouse. Knew nothing about the industry. Built an AI-powered lead gen pipeline with Claude Code on a near-zero budget. Found buyers, sent outreach, AI handled replies. Sale coming.
+
+### Session Log
+
+**Session 1 (2026-03-13):** Brainstormed the design (scroll-driven story page), wrote design spec, wrote implementation plan, created `tools/build_site_data.py`, fixed broken venv (rebuilt with Python 3.14.3), initialized Astro project, installed deps. Steps 1-2 complete. Next: Step 3 (Layout + global styles).
+
+**Session 2 (2026-03-17):** Built entire frontend — layout, styles, all 6 chapters + hero + closing, TikTok embeds, warehouse photos. Garron iteratively refined copy directly in `index.astro` and the design spec. Production build passes, mobile responsive verified at 375px via Playwright. Next: Step 7 (Deploy to Vercel).
+
+## Step 1: Fix Python venv + Create data build script ✅
+
+**Status:** Complete
+
+**What was done:**
+- `tools/build_site_data.py` created — reads `.tmp/*.json` + Google Sheets → outputs `site/src/data/stats.json`
+- Venv recreated with Python 3.14.3 (via `/opt/homebrew/bin/python3`)
+- `build_site_data.py` runs successfully, `stats.json` generated with correct data
+
+**Deviations:**
+- Original venv had broken symlinks pointing to old CloudDocs path — had to recreate from scratch
+- Initially recreated with system Python 3.9, then rebuilt with Homebrew Python 3.14.3
+- Google Sheets token is expired, so the build script used the fallback (cached value of 362 emails sent). Fallback mechanism worked as designed.
+
+## Step 2: Initialize Astro project ✅
+
+**Status:** Complete
+
+**What was done:**
+- Astro project scaffolded in `site/` with minimal template
+- npm dependencies installed (248 packages, 0 vulnerabilities)
+- `site/src/data/stats.json` generated and in place
+
+## Step 3: Base layout + global styles ✅
+
+**Status:** Complete
+
+**What was done:**
+- `site/src/layouts/Layout.astro` — HTML shell with OG/Twitter Card meta tags, TikTok embed script
+- `site/src/styles/global.css` — design tokens, CSS reset, section layout (dark/light), stat cards, two-column layout, flow diagram, email preview, classification badges, photo grid, TikTok row, scroll animations, responsive breakpoints
+- OG image placeholder (og.png not yet created — uses placeholder URL)
+
+## Step 4: Build reusable components ✅
+
+**Status:** Complete
+
+**Deviations:**
+- Did NOT create separate `.astro` component files. All components are built inline in `index.astro` with CSS classes in `global.css`. This is simpler for a single-page site — no need for the abstraction of separate component files when there's only one page consuming them.
+
+## Step 5: Assemble index.astro ✅
+
+**Status:** Complete
+
+**What was done:**
+- Full page assembled in `site/src/pages/index.astro` with all sections
+- Intersection Observer script for scroll fade-up animations
+- Stats pulled from `stats.json` (727 leads, 4 cities, $4.38, 362 emails, 9 replies)
+
+**Deviations from original plan:**
+- 6 chapters (not 7) — the "Three AI Tools" chapter from the design spec was removed during brainstorming
+- Chapter structure: Hero → Ch1 The Problem → Ch2 Finding Buyers → Ch3 Bounce Problem → Ch4 Reaching Out → Ch5 AI Replies → Ch6 Where Things Stand → Closing → TikTok Videos
+- TikTok videos placed at the bottom as a horizontal row (not in Ch1 as originally spec'd)
+- 6 warehouse photos added to Ch1 as a 2x3 grid (left side of two-column layout)
+- Garron edited copy directly throughout the session — hero headline, hero subtext, chapter body text, email preview text all refined from original spec/brainstorm versions
+- TikTok short URLs required resolution via oEmbed API to get actual video IDs
+
+## Step 6: Local build + test ✅
+
+**Status:** Complete
+
+- [x] `cd site && npm run build` succeeds (575ms, 0 errors)
+- [x] All sections render, scroll animations work
+- [x] Mobile responsive at 375px width (verified via Playwright)
+- [x] TikTok embeds load (all 3 videos render)
+- [ ] `python tools/build_site_data.py` — not re-run this session (using existing stats.json)
+
+## Step 7: Deploy to Vercel
+
+- [ ] `npm i -g vercel && cd site && vercel`
+- [ ] Live URL works, all content renders
+- [ ] Spot-check screenshots for social media readiness
+
+## Assets needed from Garron
+
+- [x] 3 TikTok video URLs → `media-assets/tiktok-urls.md` (resolved via oEmbed API to full video IDs)
+- [x] Warehouse/inventory photos → `site/public/images/` (6 photos added, no before/after split — all "after")
+
+---
+
+# Part 1: Outreach Pipeline (Complete)
 
 ## Context
 

@@ -1,0 +1,18 @@
+{
+  "leads_total": 727,
+  "metros": [
+    "Boston",
+    "New York",
+    "Albany Capital Region",
+    "Hudson Valley"
+  ],
+  "metros_count": 4,
+  "emails_sent": 362,
+  "emails_errors": 0,
+  "api_cost": 4.38,
+  "replies_total": 9,
+  "replies_interested": 2,
+  "replies_considering": 3,
+  "replies_declined": 5,
+  "generated_at": "2026-03-14T01:45:53.831635+00:00"
+}

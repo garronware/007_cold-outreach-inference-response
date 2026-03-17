@@ -1,0 +1,210 @@
+---
+import Layout from "../layouts/Layout.astro";
+import stats from "../data/stats.json";
+---
+
+<Layout title="Turning Dead Inventory Into Cash With Claude Code">
+  <!-- Hero -->
+  <section class="section section--dark">
+    <div class="section__inner text-center">
+      <h1 class="fade-up">Turning Dead Inventory Into Cash With Claude Code</h1>
+      <p class="fade-up text-muted mt-2">
+        No industry contacts. No industry expertise. And a shoestring budget. Built an outbound lead-gen system in a single afternoon for a fraction of the cost of something like apollo.io or hunter.io
+      </p>
+      <p class="fade-up text-muted mt-2" style="font-size: 0.9rem; opacity: 0.5;">↓ Scroll to see how</p>
+    </div>
+  </section>
+
+  <!-- Ch 1: The Problem -->
+  <section class="section">
+    <div class="section__inner">
+      <p class="chapter-label fade-up">Chapter 1</p>
+      <h2 class="fade-up">The Problem</h2>
+      <div class="two-col fade-up">
+        <div class="photo-grid">
+          <img src="/images/IMG_1472.jpeg" alt="Warehouse overview — organized inventory" />
+          <img src="/images/IMG_0186.jpeg" alt="Shelves of glass vases" />
+          <img src="/images/IMG_1908.jpeg" alt="Organized shelving units" />
+          <img src="/images/IMG_1909.jpeg" alt="Silver pedestals and vessels" />
+          <img src="/images/IMG_1911.jpeg" alt="Baskets and rustic decor" />
+          <img src="/images/IMG_1634.jpeg" alt="Full warehouse view" />
+        </div>
+        <div>
+          <p>My mom's event-decorations business closed. But she never sold the inventory. And paying rent for a warehouse of unused inventory gets old fast. So I offered to help.</p>
+          <p><strong>Turns out, professional liquidators take a big cut.</strong></p>
+          <p>And that wouldn't leave much leftover for my mom. So I asked myself, "could I find buyers willing to pay a little more for a turnkey warehouse full of event-decor items?"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ch 2: Finding Buyers -->
+  <section class="section">
+    <div class="section__inner text-center">
+      <p class="chapter-label fade-up">Chapter 2</p>
+      <h2 class="fade-up">I Found Buyers I Didn't Know Existed</h2>
+      <p class="fade-up text-muted">I knew nothing about the wedding industry. So I built an AI pipeline to scrape The Knot marketplace — finding wedding venues and florists across the Northeast who could actually use this inventory.</p>
+      <div class="stats-row fade-up">
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.leads_total}</div>
+          <div class="stat-card__label">Qualified Leads</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.metros_count}</div>
+          <div class="stat-card__label">Cities Covered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">${stats.api_cost}</div>
+          <div class="stat-card__label">Total Cost</div>
+        </div>
+      </div>
+      <p class="fade-up text-muted" style="font-size: 0.85rem;">{stats.metros.join(" · ")}</p>
+    </div>
+  </section>
+
+  <!-- Ch 3: The Bounce Problem -->
+  <section class="section section--light">
+    <div class="section__inner">
+      <p class="chapter-label fade-up">Chapter 3</p>
+      <h2 class="fade-up">The Bounce Problem (and a $0 Fix)</h2>
+      <p class="fade-up">Email bounces are kryptonite to lead-gen pipelines. Get too many, and you're flagged as spam. That's why apps like Apollo.io and Hunter.io can charge so much. My first batch had too many bounces. But I still didn't have $500 to burn, so I improvised.</p>
+      <div class="flow-diagram fade-up">
+        <div class="flow-diagram__title">MX + SMTP Handshake Verification</div>
+        <div class="flow-diagram__steps">
+          <div class="flow-step flow-step--green">
+            <div class="flow-step__label">Step 1</div>
+            <div class="flow-step__title">Check MX records</div>
+            <div class="flow-step__desc">Does this domain accept mail?</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step flow-step--blue">
+            <div class="flow-step__label">Step 2</div>
+            <div class="flow-step__title">SMTP handshake</div>
+            <div class="flow-step__desc">Does this mailbox exist?</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step flow-step--orange">
+            <div class="flow-step__label">Result</div>
+            <div class="flow-step__title">Send or skip</div>
+            <div class="flow-step__desc">Zero bounces after this</div>
+          </div>
+        </div>
+      </div>
+      <p class="fade-up text-center text-muted" style="font-size: 0.85rem;">Cost: $0. No third-party tools needed.</p>
+    </div>
+  </section>
+
+  <!-- Ch 4: Reaching Out -->
+  <section class="section">
+    <div class="section__inner">
+      <p class="chapter-label fade-up">Chapter 4</p>
+      <h2 class="fade-up">Reaching Out at Scale</h2>
+      <p class="fade-up">Each email verified before sending. Personal tone — not spam, a real ask from a real person.</p>
+      <div class="email-preview fade-up">
+        <div class="email-preview__subject">Subject: Collection of Jamali Garden & Accent Decor Items for Floral/Event Designers</div>
+        Hi folks, I'm helping my mother sell the inventory from her floral design studio in the Northeast. This is a professionally curated collection of event decor items...
+      </div>
+      <div class="stats-row fade-up">
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.emails_sent}</div>
+          <div class="stat-card__label">Emails Sent</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.emails_errors}</div>
+          <div class="stat-card__label">Errors</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ch 5: AI Handles the Replies -->
+  <section class="section section--light">
+    <div class="section__inner">
+      <p class="chapter-label fade-up">Chapter 5</p>
+      <h2 class="fade-up">AI Handles the Replies</h2>
+      <p class="fade-up">When replies come in, an AI monitor runs daily — classifying each response and drafting replies automatically. I don't have to sit at my inbox waiting.</p>
+      <div class="classification-flow fade-up">
+        <div class="classification-row">
+          <span class="badge badge--green">Interested</span>
+          <span>→ AI drafts a follow-up with inventory details</span>
+        </div>
+        <div class="classification-row">
+          <span class="badge badge--orange">Decline</span>
+          <span>→ Logged, no follow-up sent</span>
+        </div>
+        <div class="classification-row">
+          <span class="badge badge--blue">Neutral</span>
+          <span>→ AI drafts a gentle nudge</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ch 6: Where Things Stand -->
+  <section class="section">
+    <div class="section__inner text-center">
+      <p class="chapter-label fade-up">Chapter 6</p>
+      <h2 class="fade-up">Where Things Stand</h2>
+      <div class="stats-row fade-up">
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.replies_interested}</div>
+          <div class="stat-card__label">Interested Buyers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.replies_considering}</div>
+          <div class="stat-card__label">Considering</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">{stats.replies_total}</div>
+          <div class="stat-card__label">Total Replies</div>
+        </div>
+      </div>
+      <p class="fade-up text-muted">Pipeline still running. Adding more cities. Sale coming soon.</p>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="section section--dark">
+    <div class="section__inner text-center">
+      <h2 class="fade-up">The Takeaway</h2>
+      <p class="fade-up text-muted">
+        With no industry knowledge and $4.38 in API costs, I built a system that found 727 potential buyers and reached 362 of them — cutting out the middleman entirely.
+      </p>
+      <p class="fade-up mt-2" style="font-size: 0.85rem; opacity: 0.5;">Built by Garron Ware · Powered by Claude Code</p>
+    </div>
+  </section>
+
+  <!-- TikTok Videos -->
+  <section class="section">
+    <div class="section__inner text-center">
+      <h2 class="fade-up">Warehouse Organization Videos</h2>
+      <p class="fade-up text-muted">Took me 33 visits to get the warehouse in order. Made these time-lapse videos of the process.</p>
+      <div class="tiktok-row fade-up mt-2">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@garronware/video/7609112471067954445" data-video-id="7609112471067954445" data-embed-from="oembed" style="max-width: 325px; min-width: 250px;">
+          <section><a target="_blank" title="@garronware" href="https://www.tiktok.com/@garronware?refer=embed">@garronware</a></section>
+        </blockquote>
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@garronware/video/7609105707362716942" data-video-id="7609105707362716942" data-embed-from="oembed" style="max-width: 325px; min-width: 250px;">
+          <section><a target="_blank" title="@garronware" href="https://www.tiktok.com/@garronware?refer=embed">@garronware</a></section>
+        </blockquote>
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@garronware/video/7609013803442900238" data-video-id="7609013803442900238" data-embed-from="oembed" style="max-width: 325px; min-width: 250px;">
+          <section><a target="_blank" title="@garronware" href="https://www.tiktok.com/@garronware?refer=embed">@garronware</a></section>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+</script>

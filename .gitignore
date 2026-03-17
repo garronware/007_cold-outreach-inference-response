@@ -5,3 +5,8 @@ token.json
 .tmp/
 venv/
 __pycache__/
+node_modules/
+site/dist/
+.playwright-mcp/
+*.png
+.DS_Store
