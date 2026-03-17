@@ -29,7 +29,7 @@ The outreach pipeline (Part 1) is complete and working. Now we need a shareable 
 
 **Session 1 (2026-03-13):** Brainstormed the design (scroll-driven story page), wrote design spec, wrote implementation plan, created `tools/build_site_data.py`, fixed broken venv (rebuilt with Python 3.14.3), initialized Astro project, installed deps. Steps 1-2 complete. Next: Step 3 (Layout + global styles).
 
-**Session 2 (2026-03-17):** Built entire frontend — layout, styles, all 6 chapters + hero + closing, TikTok embeds, warehouse photos. Garron iteratively refined copy directly in `index.astro` and the design spec. Production build passes, mobile responsive verified at 375px via Playwright. Next: Step 7 (Deploy to Vercel).
+**Session 2 (2026-03-17):** Built entire frontend — layout, styles, all 6 chapters + hero + closing, TikTok embeds, warehouse photos. Garron iteratively refined copy directly in `index.astro` and the design spec. Production build passes, mobile responsive verified at 375px via Playwright. Deployed to Vercel, renamed project from `007_cold-outreach-inference-response` to `007-cold-outreach-inference-response`, fixed domain to `007-cold-outreach-inference-response.vercel.app`. All steps complete.
 
 ## Step 1: Fix Python venv + Create data build script ✅
 
@@ -97,11 +97,28 @@ The outreach pipeline (Part 1) is complete and working. Now we need a shareable 
 - [x] TikTok embeds load (all 3 videos render)
 - [ ] `python tools/build_site_data.py` — not re-run this session (using existing stats.json)
 
-## Step 7: Deploy to Vercel
+## Step 7: Deploy to Vercel ✅
 
-- [ ] `npm i -g vercel && cd site && vercel`
-- [ ] Live URL works, all content renders
-- [ ] Spot-check screenshots for social media readiness
+**Status:** Complete
+
+**What was done:**
+- Committed and pushed all site code to GitHub (`garronware/007_cold-outreach-inference-response`)
+- Deployed to Vercel via CLI (`vercel --prod` from project root)
+- Renamed Vercel project from `007_cold-outreach-inference-response` to `007-cold-outreach-inference-response` via REST API
+- Fixed production domain from `007cold-outreach-inference-response.vercel.app` to `007-cold-outreach-inference-response.vercel.app` (added as project domain via API, removed old one)
+- Verified live site via Playwright — all sections render, TikTok embeds load
+- Deleted accidental "site" project created during first deploy attempt
+
+**Deviations:**
+- First deploy from `site/` directory created an accidental separate "site" project on Vercel — had to delete it, then link and deploy from the project root instead
+- Vercel auto-generated domain stripped underscores from project name, producing `007cold-outreach-inference-response.vercel.app` (missing hyphen). Had to manually add the correct domain via `/v10/projects/.../domains` API and remove the old one
+- `vercel alias set` alone was insufficient — it created a deployment alias behind SSO protection. Adding the domain as a proper project domain via the API was the fix
+
+**Live URL:** https://007-cold-outreach-inference-response.vercel.app
+
+- [x] Deployed to Vercel via CLI
+- [x] Live URL works, all content renders
+- [x] Verified via Playwright browser check
 
 ## Assets needed from Garron
 
