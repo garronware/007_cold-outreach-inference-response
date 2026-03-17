@@ -10,3 +10,4 @@ site/dist/
 .playwright-mcp/
 *.png
 .DS_Store
+.vercel
